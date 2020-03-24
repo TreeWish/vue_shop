@@ -9,6 +9,13 @@ import './assets/css/global.css'
 import axios from 'axios'
 // 配置请求根路径
 axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
+// axios请求拦截
+axios.interceptors.request.use(config => {
+    // 为请求头对象，添加 Token 验证的 Authorization
+    config.headers.Authorization = window.sessionStorage.getItem('token')
+    // 必须 return通过 axios 请求拦截器添加 token，保证拥有获取数据的权限。
+    return config
+})
 Vue.prototype.$ajax = axios
 
 Vue.config.productionTip = false
