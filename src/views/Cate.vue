@@ -202,13 +202,14 @@
                     params: {
                         type: 2,
                         pagenum: 1,
-                        pagesize: 10
+                        pagesize: 15
                     }
                 });
                 if (res.meta.status !== 200) {
                     return this.$message.error('获取父级分类失败');
                 }
-                // 由于一次获取31条数据， Cascader 联级选择器展不开，导致显示有问题
+                // 由于一次获取31条数据， Cascader 再Dialog中使用时，如果下拉框里数据条目过多会使 联级选择器展不开，导致显示有问题
+                // 当Cascader 再Dialog中使用时，如果下拉框里数据条目过多会使Cascader显示出问题
                 this.parentCateList = res.data.result;
             },
             // 点击添加商品分类
@@ -304,5 +305,8 @@
     }
     .el-cascader {
       width: 100%;
+    }
+    .el-dialog {
+        overflow: hidden;
     }
 </style>
